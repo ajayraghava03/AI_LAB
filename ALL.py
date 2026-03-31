@@ -4,30 +4,31 @@ from itertools import permutations
 # -------------------------------
 # 1. BFS (User Input Graph)
 # -------------------------------
-def bfs():
-    graph = {}
-    n = int(input("Enter number of nodes: "))
+from collections import deque
 
-    for _ in range(n):
-        node = input("Enter node: ")
-        neighbors = input(f"Enter neighbors of {node} (space separated): ").split()
-        graph[node] = neighbors
+graph = {}
+n = int(input("Enter number of nodes: "))
 
-    start = input("Enter start node: ")
+for _ in range(n):
+    node = input("Enter node: ")
+    neighbors = input(f"Enter neighbors of {node} (space separated): ").split()
+    graph[node] = neighbors
 
-    visited = set()
-    queue = deque([start])
+start = input("Enter start node: ")
 
-    print("BFS Traversal:")
-    while queue:
-        node = queue.popleft()
-        if node not in visited:
-            print(node, end=" ")
-            visited.add(node)
-            for neighbor in graph[node]:
-                if neighbor not in visited:
-                    queue.append(neighbor)
-    print()
+visited = set()
+queue = deque([start])
+
+print("BFS Traversal:")
+while queue:
+    node = queue.popleft()
+    if node not in visited:
+        print(node, end=" ")
+        visited.add(node)
+        for neighbor in graph.get(node,[]):
+            if neighbor not in visited:
+                queue.append(neighbor)
+print()
 
 
 # ------------------------------- 
@@ -41,55 +42,55 @@ def dfs_util(graph, node, visited):
         for n in graph.get(node, []):   # FIXED
             dfs_util(graph, n, visited)
 
-def dfs():
-    graph = {}
-    n = int(input("Enter number of nodes: "))
 
-    for _ in range(n):
-        node = input("Enter node: ")
-        neighbors = input(f"Enter neighbors of {node}: ").split()
-        graph[node] = neighbors
+graph = {}
+n = int(input("Enter number of nodes: "))
 
-    start = input("Enter start node: ")
+for _ in range(n):
+    node = input("Enter node: ")
+    neighbors = input(f"Enter neighbors of {node}: ").split()
+    graph[node] = neighbors
 
-    print("DFS Traversal:")
-    dfs_util(graph, start, set())
-    print()
+start = input("Enter start node: ")
+
+print("DFS Traversal:")
+dfs_util(graph, start, set())
+print()
 
 
 # -------------------------------
 # 3. Tic Tac Toe
 # -------------------------------
-def tic_tac_toe():
-    board = [" "] * 9
+board = [" "] * 9
 
-    def print_board():
-        for i in range(0, 9, 3):
-            print(board[i:i+3])
+def print_board():
+    for i in range(0, 9, 3):
+        print(board[i:i+3])
 
-    def check_winner(p):
-        wins = [(0,1,2),(3,4,5),(6,7,8),
-                (0,3,6),(1,4,7),(2,5,8),
-                (0,4,8),(2,4,6)]
-        return any(board[a]==board[b]==board[c]==p for a,b,c in wins)
+def check_winner(p):
+    wins = [(0,1,2),(3,4,5),(6,7,8),
+            (0,3,6),(1,4,7),(2,5,8),
+            (0,4,8),(2,4,6)]
+    return any(board[a]==board[b]==board[c]==p for a,b,c in wins)
 
-    player = "X"
-    winner=False
-    for _ in range(9):
-        print_board()
-        move = int(input(f"{player} move (0-8): "))
-        if board[move] == " ":
-            board[move] = player
-            if check_winner(player):
-                print_board()
-                print(player, "wins!")
-                winner=False
-                break
-            player = "O" if player=="X" else "X"
-        else:
-            print("Invalid move")
-    if not winner:
-        print("Draw!")
+player = "X"
+winner=False
+for _ in range(9):
+    print_board()
+    move = int(input(f"{player} move (0-8): "))
+    if board[move] == " ":
+        board[move] = player
+        if check_winner(player):
+            print_board()
+            print(player, "wins!")
+            winner=False
+            break
+        player = "O" if player=="X" else "X"
+    else:
+        print("Invalid move")
+if not winner:
+    print("Draw!")
+
 
 
 # -------------------------------
