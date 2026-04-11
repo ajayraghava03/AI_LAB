@@ -83,7 +83,7 @@ for _ in range(9):
         if check_winner(player):
             print_board()
             print(player, "wins!")
-            winner=False
+            winner=True
             break
         player = "O" if player=="X" else "X"
     else:
