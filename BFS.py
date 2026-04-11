@@ -1,5 +1,3 @@
-# 1. BFS (User Input Graph)
-# -------------------------------
 from collections import deque
 
 graph = {}
